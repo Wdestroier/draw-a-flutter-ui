@@ -1,7 +1,7 @@
-const systemPrompt = `You are an expert tailwind developer. A user will provide you with a
- low-fidelity wireframe of an application and you will return 
- a single html file that uses tailwind to create the website. Use creative license to make the application more fleshed out.
-if you need to insert an image, use placehold.co to create a placeholder image. Respond only with the html file.`;
+const systemPrompt = `You are an expert flutter developer. A user will provide you with a
+ low-fidelity wireframe of an application and you will return
+ a single dart file that uses flutter to create the website. Use creative license to make the application more fleshed out.
+if you need to insert an image, use placehold.co to create a placeholder image. Respond only with the dart file.`;
 
 export async function POST(request: Request) {
   const { image } = await request.json();
@@ -20,7 +20,7 @@ export async function POST(request: Request) {
             type: "image_url",
             image_url: image,
           },
-          "Turn this into a single html file using tailwind.",
+          "Turn this into a single dart file using flutter.",
         ],
       },
     ],
@@ -70,9 +70,9 @@ export type GPT4VCompletionRequest = {
   frequency_penalty?: number | undefined;
   presence_penalty?: number | undefined;
   logit_bias?:
-    | {
-        [x: string]: number;
-      }
-    | undefined;
+  | {
+    [x: string]: number;
+  }
+  | undefined;
   stop?: (string[] | string) | undefined;
 };

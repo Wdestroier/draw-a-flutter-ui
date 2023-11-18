@@ -89,10 +89,10 @@ function ExportButton({ setHtml }: { setHtml: (html: string) => void }) {
           }
 
           const message = json.choices[0].message.content;
-          const start = message.indexOf("<!DOCTYPE html>");
-          const end = message.indexOf("</html>");
-          const html = message.slice(start, end + "</html>".length);
-          setHtml(html);
+          const start = message.indexOf("```dart");
+          const end = message.lastIndexOf("```");
+          const dartCode = message.slice(start + "```dart".length, end);
+          setHtml(dartCode);
         } finally {
           setLoading(false);
         }

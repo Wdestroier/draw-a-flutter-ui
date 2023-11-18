@@ -27,68 +27,78 @@ export function PreviewModal({
   }
 
   return (
-    <div
-      onClick={(e) => {
-        e.stopPropagation();
-      }}
-      className="bg-white rounded-lg shadow-xl flex flex-col"
-      style={{
-        width: "calc(100% - 64px)",
-        height: "calc(100% - 64px)",
-      }}
-    >
-      <div className="flex justify-between items-center p-4 border-b">
-        <div className="flex space-x-1">
-          <TabButton
-            active={activeTab === "preview"}
+    <>
+      <div
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
+        className="bg-white rounded-lg shadow-xl flex flex-col"
+        style={{
+          width: "calc(100% - 64px)",
+          height: "calc(100% - 64px)",
+        }}
+      >
+        <div className="flex justify-between items-center p-4 border-b">
+          <div className="flex space-x-1">
+            <TabButton
+              active={activeTab === "preview"}
+              onClick={() => {
+                setActiveTab("preview");
+              }}
+            >
+              Preview
+            </TabButton>
+          </div>
+
+          <button
+            className="p-2 rounded-md hover:bg-gray-200 focus:outline-none focus:ring"
             onClick={() => {
-              setActiveTab("preview");
+              setHtml(null);
             }}
           >
-            Preview
-          </TabButton>
-          <TabButton
-            active={activeTab === "code"}
-            onClick={() => {
-              setActiveTab("code");
-            }}
-          >
-            Code
-          </TabButton>
+            <svg
+              className="w-6 h-6 text-gray-600"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M6 18L18 6M6 6l12 12"
+              ></path>
+            </svg>
+          </button>
         </div>
 
-        <button
-          className="p-2 rounded-md hover:bg-gray-200 focus:outline-none focus:ring"
-          onClick={() => {
-            setHtml(null);
-          }}
-        >
-          <svg
-            className="w-6 h-6 text-gray-600"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            aria-hidden="true"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M6 18L18 6M6 6l12 12"
-            ></path>
-          </svg>
-        </button>
-      </div>
+        <iframe className="w-full h-full" srcdoc={`
+        <!DOCTYPE html>
+        <html lang="en">
 
-      {activeTab === "preview" ? (
-        <iframe className="w-full h-full" srcDoc={html} />
-      ) : (
-        <pre className="overflow-auto p-4">
-          <code className="language-markup">{html}</code>
-        </pre>
-      )}
-    </div>
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Dartpad</title>
+            <script type="text/javascript" src="https://dartpad.dev/inject_embed.dart.js" defer></script>
+        </head>
+
+        <body>
+            <div class="code-excerpt__code">
+                <pre>
+                    <code class="language-run-dartpad:theme-light:mode-flutter:run-true:split-40:width-99%:height-95vh">
+                      ${html}
+                    </code>
+                </pre>
+            </div>
+        </body>
+
+        </html>
+        `}></iframe>
+      </div>
+    </>
   );
 }
 
