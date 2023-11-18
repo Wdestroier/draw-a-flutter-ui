@@ -2,7 +2,7 @@
 
 An app based on draw-a-ui modified to generate Dart and Flutter code. The code is generated with the GPT-4 Vision API based on a wireframe you draw and displayed with Dartpad.
 
-![A demo of the app](./demo.gif)
+![A demo of the app](./demonstration.gif)
 
 Works by taking the current canvas SVG, converting it to a PNG and sending that PNG to GPT-4 Vision with instructions to return Flutter code.
 
